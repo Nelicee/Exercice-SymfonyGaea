@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Edition de {{ user.nom }}</h1>
+    {{form(form)}}
+{% endblock %}

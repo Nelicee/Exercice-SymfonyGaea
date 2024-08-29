@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Détail de {{ user.prenom }} {{ user.nom }}  avec ses possessions</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th class="address-column ">Adresse</th>
+                    <th>Téléphone</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+             
+                    <tr>
+                      <td>{{ user.id }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.adresse }}</td>
+                        <td>{{ user.tel }}</td>
+                        
+                        <td>
+                            <form action="{{ path('user.delete', {id: user.id})}}" method ="POST" >
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type ="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                
+            </tbody>
+        </table>
+        <h1>Les possessions de {{ user.prenom }} {{ user.nom }}</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Valeur</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for possession in user.possessions %}
+                <tr>
+                    <td>{{ possession.id }}</td>
+                      <td>{{ possession.nom }}</td>
+                      <td>{{ possession.valeur }}</td>
+                      <td>{{ possession.type }}</td>
+                </tr> 
+                {% endfor %}    
+                
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}

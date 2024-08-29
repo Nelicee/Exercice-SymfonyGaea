@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Liste des utilisateurs
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Liste des utilisateurs</h1>
+		<p>
+			<a class="btn btn-primary btn-sm" href="{{ path('user.create') }}">Créer un nouvel utilisateur</a>
+		</p>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Email</th>
+					<th class="address-column ">Adresse</th>
+					<th>Téléphone</th>
+					<th>Age</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+
+					<tr>
+						<td>{{ user.id }}</td>
+						<td>
+							<a href="{{ path('user.show', {id: user.id}) }}">{{ user.nom }}</a>
+						</td>
+						<td>{{ user.prenom }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.adresse }}</td>
+						<td>{{ user.tel }}</td>
+						<td>{{ age[user.id] }} ans</td>
+						
+						<td>
+							<div class="d-flex gap-1">
+								<a class="btn btn-primary btn-sm" href="{{ path('user.edit', {id: user.id}) }}">Editer</a>
+							<form action="{{ path('user.delete', {id: user.id})}}" method="POST">
+								<input type="hidden" name="_method" value="DELETE">
+								<button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+							</form>
+							</div>
+						</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+		{% include "partials/flash.html.twig" %}
+	</div>
+{% endblock %}
